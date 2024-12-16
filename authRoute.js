@@ -1,12 +1,12 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 import { readDb, writeDb, cleanExpiredTokens } from './utils.js';
 
-const SECRET_KEY = "your_secret_key";
-const REFRESH_SECRET_KEY = "your_refresh_secret_key";
-
 const router = express.Router();
+
+console.log(process.env.SECRET_KEY, process.env.REFRESH_SECRET_KEY)
 
 router.post("/register", async (req, res) => {
   const { username, password, role } = req.body;
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
   if (existingToken) {
     refreshToken = existingToken.refreshToken;
   } else {
-    refreshToken = jwt.sign({ id: user.id }, REFRESH_SECRET_KEY, { expiresIn: "7d" });
+    refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_SECRET_KEY, { expiresIn: "7d" });
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
     writeDb(db);
   }
 
-  const accessToken = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: "15m" });
+  const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, { expiresIn: "15m" });
 
   res.json({
     accessToken, refreshToken, user: {
@@ -105,8 +105,8 @@ router.post("/refresh", (req, res) => {
   if (!refreshToken) return res.status(401).json({ error: "Refresh token is required" });
 
   try {
-    const payload = jwt.verify(refreshToken, REFRESH_SECRET_KEY);
-    const accessToken = jwt.sign({ id: payload.id, role: payload.role }, SECRET_KEY, { expiresIn: "15m" });
+    const payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET_KEY);
+    const accessToken = jwt.sign({ id: payload.id, role: payload.role }, process.env.SECRET_KEY, { expiresIn: "15m" });
     res.json({ accessToken });
   } catch {
     res.status(401).json({ error: "Invalid refresh token" });
