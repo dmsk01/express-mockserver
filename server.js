@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { authRoute } from './authRoute.js';
+import { authRouter } from './routes/authRouter.js';
+import { adminRouter } from './routes/adminRouter.js';
 import { adminAuthMiddleware } from './middleware.js'
 
 const app = express();
@@ -15,12 +16,8 @@ const corsOptions = {
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(adminAuthMiddleware);
-app.use('/', authRoute);
-
-// Пример защищённого админского маршрута
-app.get("/admin/dashboard", (req, res) => {
-  res.json({ message: "Welcome to the admin dashboard" });
-});
+app.use('/', authRouter);
+app.use('/admin', adminRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

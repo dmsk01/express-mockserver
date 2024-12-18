@@ -2,11 +2,9 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
-import { readDb, writeDb, cleanExpiredTokens } from './utils.js';
+import { readDb, writeDb, cleanExpiredTokens } from '../utils.js';
 
 const router = express.Router();
-
-console.log(process.env.SECRET_KEY, process.env.REFRESH_SECRET_KEY)
 
 router.post("/register", async (req, res) => {
   const { username, password, role } = req.body;
@@ -113,4 +111,4 @@ router.post("/refresh", (req, res) => {
   }
 });
 
-export { router as authRoute }
+export { router as authRouter }

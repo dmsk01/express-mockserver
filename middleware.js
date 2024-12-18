@@ -9,11 +9,20 @@ export const adminAuthMiddleware = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
     try {
-      const payload = jwt.verify(token, SECRET_KEY);
-      if (payload.role !== "admin") return res.status(403).json({ error: "Forbidden: Admins only" });
+      const payload = jwt.verify(token, process.env.SECRET_KEY);
+      console.log(payload);
+
+      if (payload.role !== "admin") {
+        return res.status(403).json({ error: "Forbidden: Admins only" });
+      }
+      req.user = payload;
       next();
-    } catch {
-      res.status(401).json({ error: "Invalid token" });
+    } catch (error) {
+      if (error.name === "TokenExpiredError") {
+        res.status(401).json({ error: "Token expired" });
+      } else {
+        res.status(401).json({ error: "Invalid token" });
+      }
     }
   } else {
     next();
