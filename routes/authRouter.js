@@ -1,40 +1,10 @@
-import express from 'express';
 import bcrypt from 'bcrypt';
+import express from 'express';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import { readDb, writeDb, cleanExpiredTokens } from '../utils.js';
 
 const router = express.Router();
-
-router.post("/register", async (req, res) => {
-  const { username, password, role } = req.body;
-
-  if (!username || !password || !role) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const db = readDb();
-    const users = db.users || [];
-
-    const existingUser = users.find((user) => user.username === username);
-    if (existingUser) {
-      return res.status(400).json({ error: "Username already exists" });
-    }
-
-    const newUser = { id: Date.now(), username, password: hashedPassword, role };
-    users.push(newUser);
-
-    db.users = users;
-    writeDb(db);
-
-    res.status(201).json({ message: "User registered successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error registering user" });
-  }
-});
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;

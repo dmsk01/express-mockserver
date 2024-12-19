@@ -13,9 +13,15 @@
       "role": "user"
     },
     {
-      "id": 1733671311549,
-      "username": "newuser",
-      "password": "$2b$10$Z6f3T6/Q5KS8qCHEMp5fGuuPeUzbsH9MCzLx0l1Hb2RGpQI0Pc0UK",
+      "id": 1734639342880,
+      "username": "test",
+      "password": "$2b$10$agxt9pdxyYiGasM0IniZ5umOWTnbgYgb2mcRCKynxMWS11gxNsv/2",
+      "role": "admin"
+    },
+    {
+      "id": 1734639428269,
+      "username": "ccc",
+      "password": "$2b$10$/Xkl6ruJzH1khUsXGMgmc.byr4WyCKx39dhU7jq.6pGCtQgskFdri",
       "role": "user"
     }
   ],
