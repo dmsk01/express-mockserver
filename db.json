@@ -14,9 +14,9 @@
     },
     {
       "id": 1734639342880,
-      "username": "test",
+      "username": "test2222",
       "password": "$2b$10$agxt9pdxyYiGasM0IniZ5umOWTnbgYgb2mcRCKynxMWS11gxNsv/2",
-      "role": "admin"
+      "role": "user"
     },
     {
       "id": 1734639428269,
@@ -27,14 +27,14 @@
   ],
   "tokens": [
     {
-      "userId": 1,
-      "expiresAt": "2024-12-20T20:40:21.445Z",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM0MTIyNDIxLCJleHAiOjE3MzQ3MjcyMjF9.dikoji1fT3IHQDI5_g0C9uRrnmKrOF6EYCLBj1IZ2Ug"
-    },
-    {
       "userId": 2,
       "expiresAt": "2024-12-23T12:09:12.742Z",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM0MzUwOTUyLCJleHAiOjE3MzQ5NTU3NTJ9.4BSUTcFDai1TANuvC9_OnNHRKmoSGR_A29CMwZPRXTI"
+    },
+    {
+      "userId": 1,
+      "expiresAt": "2024-12-29T17:23:22.782Z",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM0ODg4MjAyLCJleHAiOjE3MzU0OTMwMDJ9.jsprpSO_0DzOZczv4WTSbpU8P6uf5O7iW-FkTyIxPeQ"
     }
   ]
 }
