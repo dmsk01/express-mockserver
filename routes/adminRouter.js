@@ -118,5 +118,49 @@ router.put('/users/:id', adminAuthMiddleware, async (req, res) => {
   }
 });
 
+router.delete('/users/:id', adminAuthMiddleware, async (req, res) => {
+  const user = req.user;
+  const isAdmin = user.role === 'admin';
+
+  if (isAdmin) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+
+      const db = readDb();
+      const users = db.users || [];
+      const userIndex = users.findIndex((u) => u.id === parseInt(id));
+
+      if (userIndex === -1) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Remove the user from the array
+      const deletedUser = users.splice(userIndex, 1)[0];
+
+      // Save changes to database
+      db.users = users;
+      writeDb(db);
+
+      res.status(200).json({
+        message: "User deleted successfully",
+        user: {
+          id: deletedUser.id,
+          username: deletedUser.username,
+          role: deletedUser.role,
+        },
+      });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ error: "Error deleting user" });
+    }
+  } else {
+    res.status(403).json({ error: "Access denied" });
+  }
+});
+
 
 export { router as adminRouter }

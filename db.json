@@ -11,18 +11,6 @@
       "username": "user",
       "password": "$2b$10$568W/2EgXKpmQc78Gr8doexTMQsiGoqSmY1sWbFSAOBJwgNn4S9ym",
       "role": "user"
-    },
-    {
-      "id": 1734639342880,
-      "username": "test2222",
-      "password": "$2b$10$agxt9pdxyYiGasM0IniZ5umOWTnbgYgb2mcRCKynxMWS11gxNsv/2",
-      "role": "user"
-    },
-    {
-      "id": 1734639428269,
-      "username": "ccc",
-      "password": "$2b$10$/Xkl6ruJzH1khUsXGMgmc.byr4WyCKx39dhU7jq.6pGCtQgskFdri",
-      "role": "user"
     }
   ],
   "tokens": [

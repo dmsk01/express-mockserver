@@ -8,7 +8,7 @@ import { adminAuthMiddleware } from "./middleware.js";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:5175",
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Для передачи cookie или авторизационных заголовков
 };
