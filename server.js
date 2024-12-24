@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { authRouter } from "./routes/authRouter.js";
 import { adminRouter } from "./routes/adminRouter.js";
@@ -13,6 +14,7 @@ const corsOptions = {
   credentials: true, // Для передачи cookie или авторизационных заголовков
 };
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(adminAuthMiddleware);

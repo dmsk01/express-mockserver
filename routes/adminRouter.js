@@ -1,29 +1,34 @@
-import bcrypt from 'bcrypt';
-import express from 'express';
-import { readDb, writeDb } from '../utils.js';
-import { adminAuthMiddleware } from '../middleware.js'
+import bcrypt from "bcrypt";
+import express from "express";
+import { readDb, writeDb } from "../utils.js";
+import { adminAuthMiddleware } from "../middleware.js";
 
 const router = express.Router();
 
-router.get('/users', adminAuthMiddleware, async (req, res) => {
+router.get("/users", adminAuthMiddleware, async (req, res) => {
   try {
     const user = req.user;
-    const isAdmin = user.role === 'admin';
+    const isAdmin = user.role === "admin";
 
     if (isAdmin) {
       const db = readDb();
-      res.json(db.users.map(user => ({ id: user.id, username: user.username, role: user.role })));
+      res.json(
+        db.users.map((user) => ({
+          id: user.id,
+          username: user.username,
+          role: user.role,
+        }))
+      );
     }
   } catch (error) {
-    console.error('Error reading database:', error);
-    res.status(500).json({ message: 'Failed to read the database' });
+    console.error("Error reading database:", error);
+    res.status(500).json({ message: "Failed to read the database" });
   }
 });
 
-
 router.post("/register", adminAuthMiddleware, async (req, res) => {
   const user = req.user;
-  const isAdmin = user.role === 'admin';
+  const isAdmin = user.role === "admin";
 
   if (isAdmin) {
     try {
@@ -42,7 +47,12 @@ router.post("/register", adminAuthMiddleware, async (req, res) => {
         return res.status(400).json({ error: "Username already exists" });
       }
 
-      const newUser = { id: Date.now(), username, password: hashedPassword, role };
+      const newUser = {
+        id: Date.now(),
+        username,
+        password: hashedPassword,
+        role,
+      };
       users.push(newUser);
 
       db.users = users;
@@ -50,7 +60,7 @@ router.post("/register", adminAuthMiddleware, async (req, res) => {
 
       res.status(201).json({
         message: "User registered successfully",
-        users: users.map(user => ({ id: user.id, username: user.username, role: user.role }))
+        user: { id: newUser.id, username: newUser.username, role: newUser.role },
       });
     } catch (error) {
       res.status(500).json({ error: "Error registering user" });
@@ -58,9 +68,9 @@ router.post("/register", adminAuthMiddleware, async (req, res) => {
   }
 });
 
-router.put('/users/:id', adminAuthMiddleware, async (req, res) => {
+router.put("/users/:id", adminAuthMiddleware, async (req, res) => {
   const user = req.user;
-  const isAdmin = user.role === 'admin';
+  const isAdmin = user.role === "admin";
 
   if (isAdmin) {
     try {
@@ -81,9 +91,13 @@ router.put('/users/:id', adminAuthMiddleware, async (req, res) => {
 
       // Update user fields if provided
       if (username) {
-        const existingUser = users.find((u) => u.username === username && u.id !== parseInt(id));
+        const existingUser = users.find(
+          (u) => u.username === username && u.id !== parseInt(id)
+        );
         if (existingUser) {
-          return res.status(400).json({ error: "Username already taken by another user" });
+          return res
+            .status(400)
+            .json({ error: "Username already taken by another user" });
         }
         users[userIndex].username = username;
       }
@@ -106,11 +120,11 @@ router.put('/users/:id', adminAuthMiddleware, async (req, res) => {
         user: {
           id: users[userIndex].id,
           username: users[userIndex].username,
-          role: users[userIndex].role
-        }
+          role: users[userIndex].role,
+        },
       });
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error("Error updating user:", error);
       res.status(500).json({ error: "Error updating user" });
     }
   } else {
@@ -118,9 +132,9 @@ router.put('/users/:id', adminAuthMiddleware, async (req, res) => {
   }
 });
 
-router.delete('/users/:id', adminAuthMiddleware, async (req, res) => {
+router.delete("/users/:id", adminAuthMiddleware, async (req, res) => {
   const user = req.user;
-  const isAdmin = user.role === 'admin';
+  const isAdmin = user.role === "admin";
 
   if (isAdmin) {
     try {
@@ -154,7 +168,7 @@ router.delete('/users/:id', adminAuthMiddleware, async (req, res) => {
         },
       });
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
       res.status(500).json({ error: "Error deleting user" });
     }
   } else {
@@ -162,5 +176,4 @@ router.delete('/users/:id', adminAuthMiddleware, async (req, res) => {
   }
 });
 
-
-export { router as adminRouter }
+export { router as adminRouter };

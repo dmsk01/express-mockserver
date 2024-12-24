@@ -4,13 +4,12 @@ import jwt from 'jsonwebtoken';
 // Middleware для защиты админских маршрутов
 export const adminAuthMiddleware = (req, res, next) => {
   if (req.path.startsWith("/admin")) {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(403).json({ error: "Authorization header required" });
-
-    const token = authHeader.split(" ")[1];
+    const token = req.cookies.accessToken; // Извлекаем токен из куки
+    if (!token) {
+      return res.status(403).json({ error: "Access token required" });
+    }
     try {
       const payload = jwt.verify(token, process.env.SECRET_KEY);
-      console.log(payload);
 
       if (payload.role !== "admin") {
         return res.status(403).json({ error: "Forbidden: Admins only" });

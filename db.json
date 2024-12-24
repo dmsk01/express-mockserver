@@ -15,14 +15,9 @@
   ],
   "tokens": [
     {
-      "userId": 2,
-      "expiresAt": "2024-12-23T12:09:12.742Z",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM0MzUwOTUyLCJleHAiOjE3MzQ5NTU3NTJ9.4BSUTcFDai1TANuvC9_OnNHRKmoSGR_A29CMwZPRXTI"
-    },
-    {
       "userId": 1,
-      "expiresAt": "2024-12-29T17:23:22.782Z",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM0ODg4MjAyLCJleHAiOjE3MzU0OTMwMDJ9.jsprpSO_0DzOZczv4WTSbpU8P6uf5O7iW-FkTyIxPeQ"
+      "expiresAt": "2024-12-31T19:48:31.642Z",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM1MDY5NzExLCJleHAiOjE3MzU2NzQ1MTF9.5KmsiRCDAIFzS3VefB93y_MBdMii6EVvBbt_gPhPL1s"
     }
   ]
 }
