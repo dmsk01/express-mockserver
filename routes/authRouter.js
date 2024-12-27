@@ -119,4 +119,19 @@ router.post("/refresh", (req, res) => {
   }
 });
 
+router.get("/validate", (req, res) => {
+  const { accessToken } = req.cookies;
+
+  if (!accessToken) {
+    return res.status(401).json({ error: "Access token is missing" });
+  }
+
+  try {
+    const payload = jwt.verify(accessToken, process.env.SECRET_KEY);
+    res.json({ message: "Token is valid", user: payload });
+  } catch (error) {
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+});
+
 export { router as authRouter };

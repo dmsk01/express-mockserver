@@ -11,13 +11,25 @@
       "username": "user",
       "password": "$2b$10$568W/2EgXKpmQc78Gr8doexTMQsiGoqSmY1sWbFSAOBJwgNn4S9ym",
       "role": "user"
+    },
+    {
+      "id": 1735328231242,
+      "username": "test",
+      "password": "$2b$10$zmW.c6myhN6dLO1ie3raBOSFqUEQ3uJtjGgQBI1NcLGG9m2wcDKk6",
+      "role": "admin"
+    },
+    {
+      "id": 1735328271767,
+      "username": "test2",
+      "password": "$2b$10$EsjB99Ffb0tivMrDQPkRDu.PyCXts6TK0L77sGDumNJIucYvWYziq",
+      "role": "user"
     }
   ],
   "tokens": [
     {
-      "userId": 1,
-      "expiresAt": "2024-12-31T19:48:31.642Z",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM1MDY5NzExLCJleHAiOjE3MzU2NzQ1MTF9.5KmsiRCDAIFzS3VefB93y_MBdMii6EVvBbt_gPhPL1s"
+      "userId": 1735328271767,
+      "expiresAt": "2025-01-03T19:38:12.114Z",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTczNTMyODI3MTc2NywiaWF0IjoxNzM1MzI4MjkyLCJleHAiOjE3MzU5MzMwOTJ9.PgP2XUi19Ry0d7oFXixHh_arxyQnI4FVrVwJ6kg1uFc"
     }
   ]
 }
