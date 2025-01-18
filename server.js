@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { authRouter } from "./routes/authRouter.js";
 import { adminRouter } from "./routes/adminRouter.js";
+import { recipesRouter } from "./routes/recipesRouter.js";
 import { adminAuthMiddleware } from "./middleware.js";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors(corsOptions));
 app.use(adminAuthMiddleware);
 app.use("/", authRouter);
 app.use("/admin", adminRouter);
+app.use("/recipes", recipesRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

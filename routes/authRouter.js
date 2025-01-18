@@ -38,9 +38,11 @@ router.post("/login", async (req, res) => {
   if (existingToken) {
     refreshToken = existingToken.refreshToken;
   } else {
-    refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_SECRET_KEY, {
-      expiresIn: "7d",
-    });
+    refreshToken = jwt.sign(
+      { id: user.id, role: user.role }, 
+      process.env.REFRESH_SECRET_KEY,
+      { expiresIn: "7d" }
+    );
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
@@ -55,14 +57,14 @@ router.post("/login", async (req, res) => {
   const accessToken = jwt.sign(
     { id: user.id, role: user.role },
     process.env.SECRET_KEY,
-    { expiresIn: "15m" }
+    { expiresIn: "10m" }
   );
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "Strict",
-    maxAge: 15 * 60 * 1000, // 15 минут
+    maxAge: 10 * 60 * 1000, // 10 минут
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -95,22 +97,25 @@ router.post("/logout", (req, res) => {
 // Эндпоинт для обновления accessToken с помощью refreshToken
 router.post("/refresh", (req, res) => {
   const { refreshToken } = req.cookies;
-  if (!refreshToken)
-    return res.status(401).json({ error: "Refresh token is required" });
 
+
+  if (!refreshToken) {
+    return res.status(401).json({ error: "Refresh token is required" })
+  }
   try {
     const payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET_KEY);
+    console.log("Payload from refreshToken:", payload);
     const accessToken = jwt.sign(
       { id: payload.id, role: payload.role },
       process.env.SECRET_KEY,
-      { expiresIn: "15m" }
+      { expiresIn: "10m" }
     );
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
-      maxAge: 15 * 60 * 1000, // 15 минут
+      maxAge: 10 * 60 * 1000, // 10 минут
     });
 
     res.json({ message: "Access token refreshed" });

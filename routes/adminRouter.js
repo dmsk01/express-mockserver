@@ -2,12 +2,15 @@ import bcrypt from "bcrypt";
 import express from "express";
 import { readDb, writeDb } from "../utils.js";
 import { adminAuthMiddleware } from "../middleware.js";
+import { verifyAccessTokenMiddleware } from "../middleware.js";
 
 const router = express.Router();
 
 router.get("/users", adminAuthMiddleware, async (req, res) => {
   try {
     const user = req.user;
+    console.log('USER from admin/user route ', user);
+
     const isAdmin = user.role === "admin";
 
     if (isAdmin) {
